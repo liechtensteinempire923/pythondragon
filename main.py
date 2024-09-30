@@ -17,7 +17,7 @@ clock = pygame.time.Clock()
 PLAYER_STARTING_LIVES = 5
 PLAYER_VELOCITY = 10
 COIN_STARTING_VELOCITY = 10
-COIN_ACCELERATION = 90
+COIN_ACCELERATION = 0.5
 BUFFER_DISTANCE = 100
 
 # Set Game Variables
@@ -47,6 +47,8 @@ score_text = font.render("Score: " + str(score), True, GREEN, DARKGREEN)
 score_rect = score_text.get_rect()
 score_rect.topleft = (10, 10)
 
+
+
 # Set Text for Title (Similar to Score)
 '''
 variable names:  title_text , title_rect 
@@ -71,9 +73,11 @@ color: GREEN
 background: DARKGREEN
 rect location: topright = (WINDOW_WIDTH - 10, 10) 
 '''
-lives_text = font.render("Lives: " + str(player_lives), True, GREEN, DARKGREEN)
-topright = (WINDOW_WIDTH - 10, 10)
 
+
+lives_text = font.render("lives: " + str(player_lives), True, GREEN, DARKGREEN)
+lives_rect = lives_text.get_rect()
+lives_rect.topright = (WINDOW_WIDTH - 10, 10)
 
 
 
@@ -87,9 +91,10 @@ color: GREEN
 background: DARKGREEN
 rect location: center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2) 
 '''
-game_over_text = ("GAMEOVER")
-game_over_rect: tuple[pygame.surface.Surface] = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2)
+game_over_text = "GAMEOVER"
 
+game_over_rect: tuple[pygame.surface.Surface] = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2)
+"pygame.surface.Surface"
 # Set Text for Continue (Similar to Score)
 '''
 variable names:  continue_text, continue_rect  
@@ -153,6 +158,7 @@ while running:
        miss_sound.play()
        coin_rect.x = WINDOW_WIDTH + BUFFER_DISTANCE
        coin_rect.y = random.randint(64, WINDOW_HEIGHT - 32)
+       lives_text = font.render("lives: " + str(player_lives), True, GREEN, DARKGREEN)
     else:
        coin_rect.x -= coin_velocity
 
@@ -173,7 +179,7 @@ while running:
        display_surface.blit(game_over_rect, game_over_text)
        "Display the continue text like I did for game_over_text"
        pygame.display.update()
-
+       "game_over_text game_over_rect"
 
        #Pause the game until player presses a key, then reset the game
        is_paused = True
@@ -199,7 +205,7 @@ while running:
     # Blit the HUD to the screen.
     display_surface.blit(score_text, score_rect)
     display_surface.blit(title_text, title_rect)
-    "display_surface.blit(lives_text, lives_rect)"
+    display_surface.blit(lives_text, lives_rect)
     display_surface.blit(player_image, player_rect)
     display_surface.blit(coin_image, coin_rect)
     pygame.draw.line(display_surface, WHITE, (0,64), (WINDOW_WIDTH, 64), 2)
