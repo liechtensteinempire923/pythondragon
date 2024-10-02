@@ -146,7 +146,8 @@ while running:
         player_rect.y -= PLAYER_VELOCITY
     if keys[pygame.K_DOWN] and player_rect.bottom < WINDOW_HEIGHT:
         player_rect.y += PLAYER_VELOCITY
-
+    if keys[pygame.K_1] and player_lives:
+        player_lives += 1
     # Move the coin
     if coin_rect.x < 0:
         # Player missed the coin
